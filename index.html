@@ -28,49 +28,40 @@
 	</div>
 </body>
 <script type="text/javascript">
-	/* link to how the app should behave when you get it to work:
-	http://youtu.be/TtMHhqrYf90
-	*/
 
 	var counter = 0;
 	var timerID = null;
-	$("#displayArea").on('click');
+	$("#displayArea").on('click', increaseCounter);
 	$("#displayArea").on('mouseout', handleMouseout);
 	$("#displayArea").on('mouseover', handleMouseover);
 
-
-
 	function increaseCounter() {
-		var counter = $("#displayArea").click(function () {
-			counter++;
-			updateDisplay();
-		})
+		counter += 1;
+		updateDisplay();
 	}
 
 	function decreaseCounter() {
-if (counter <= 0) {
-	handleMouseover();
-	var counter = 0;
-}
+		if (counter <= 0) {
+			handleMouseover();
+			counter = 0;
+		}
 
 		{
-var counter = counter--;
-updateDisplay();
+			counter -= 1;
+			updateDisplay();
 		}
-		//decrease the counter by one, and save the result back into the counter variable
-		//call the updateDisplay function
 	}
 
 	function updateDisplay() {
-		//change the text of the span inside the div.  The div has an id of displayArea.  The text will be changed to the value currently inside the global variable of counter
+		$('#displayArea > span').text(counter);
 	}
 
 	function handleMouseout() {
-		//call the setInterval function (it is a default function, not one defined here).  pass in the following 2 parameters: the name of the function that decreases the counter, and 500.   setInterval returns a value, save that value in the global variable "timerID"
+		timerID = setInterval(decreaseCounter, 500);
 	}
 
 	function handleMouseover() {
-		//call the clearTimeout function (not defined here, it is available by default.  pass in the global variable timerID as an argument
+		clearTimeout(timerID);
 	}	
 </script>
 
